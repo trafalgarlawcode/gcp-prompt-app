@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: prompt-app
-        image: europe-central2-docker.pkg.dev/YOUR_PROJECT_ID/gcp-prompt-app/prompt-app:latest
+        image: europe-central2-docker.pkg.dev/graphite-store-460210-d9/gcp-prompt-app/prompt-app:latest
         ports:
         - containerPort: 5000
