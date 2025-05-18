@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prompt-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prompt-app
+  template:
+    metadata:
+      labels:
+        app: prompt-app
+    spec:
+      containers:
+      - name: prompt-app
+        image: europe-central2-docker.pkg.dev/YOUR_PROJECT_ID/gcp-prompt-app/prompt-app:latest
+        ports:
+        - containerPort: 5000
