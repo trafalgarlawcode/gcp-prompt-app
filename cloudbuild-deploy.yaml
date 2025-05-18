@@ -1,4 +1,13 @@
 steps:
+  # Authenticate and configure access to GKE cluster
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gcloud container clusters get-credentials prompt-cluster --region=europe-central2
+
+  # Deploy using kubectl
   - name: 'gcr.io/cloud-builders/kubectl'
     args:
       [
@@ -9,4 +18,5 @@ steps:
     env:
       - 'CLOUDSDK_COMPUTE_REGION=europe-central2'
       - 'CLOUDSDK_CONTAINER_CLUSTER=prompt-cluster'
+
 timeout: 600s
