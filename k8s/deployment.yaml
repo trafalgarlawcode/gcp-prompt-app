@@ -12,8 +12,14 @@ spec:
       labels:
         app: prompt-app
     spec:
+      nodeSelector:
+        cloud.google.com/compute-class: "Balanced"  # Allows better memory ratio
       containers:
       - name: prompt-app
         image: europe-central2-docker.pkg.dev/graphite-store-460210-d9/gcp-prompt-app/prompt-app:latest
         ports:
         - containerPort: 5000
+        resources:
+          requests:
+            memory: "4Gi"  # Increased from default 2Gi
+            cpu: "500m"    # Maintains 1:8 ratio for Balanced class
