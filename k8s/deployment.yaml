@@ -27,10 +27,11 @@ spec:
             port: 5000
           initialDelaySeconds: 5
           periodSeconds: 10
+          failureThreshold: 3
         readinessProbe:
           httpGet:
             path: /healthz
             port: 5000
-          initialDelaySeconds: 2
+          initialDelaySeconds: 15
           periodSeconds: 5
 

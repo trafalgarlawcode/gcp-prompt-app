@@ -3,9 +3,10 @@ kind: Service
 metadata:
   name: prompt-app-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP  # Changed from LoadBalancer
   selector:
     app: prompt-app
   ports:
     - port: 80
       targetPort: 5000
+
