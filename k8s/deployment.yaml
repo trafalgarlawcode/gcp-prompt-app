@@ -12,8 +12,6 @@ spec:
       labels:
         app: prompt-app
     spec:
-      nodeSelector:
-        cloud.google.com/compute-class: "Balanced"
       containers:
       - name: prompt-app
         image: europe-central2-docker.pkg.dev/graphite-store-460210-d9/gcp-prompt-app/prompt-app:latest
@@ -21,7 +19,7 @@ spec:
         - containerPort: 5000
         resources:
           requests:
-            memory: "4Gi"
+            memory: "2Gi"
             cpu: "500m"
         livenessProbe:
           httpGet:
