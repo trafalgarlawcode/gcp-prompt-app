@@ -13,5 +13,9 @@ steps:
       - '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$COMMIT_SHA'
     id: Push
 
+options:
+  # Add this block to resolve the error
+    logging: CLOUD_LOGGING_ONLY  # or NONE
+  
 images:
   - '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$COMMIT_SHA'
