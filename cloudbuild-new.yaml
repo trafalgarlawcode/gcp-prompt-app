@@ -13,9 +13,17 @@ steps:
       - '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$COMMIT_SHA'
     id: Push
 
+# Deploy to GKE
+  - name: 'gcr.io/cloud-builders/gke-deploy'
+    args:
+      - run
+      - --filename=./kubernetes/deployment.yaml
+      - --image=${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO_NAME}/${_IMAGE_NAME}:$COMMIT_SHA
+      - --location=${_CLUSTER_LOCATION}
+      - --cluster=${_CLUSTER_NAME}
+
 options:
-  # Add this block to resolve the error
-    logging: CLOUD_LOGGING_ONLY  # or NONE
+    logging: CLOUD_LOGGING_ONLY
   
 images:
   - '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$COMMIT_SHA'
