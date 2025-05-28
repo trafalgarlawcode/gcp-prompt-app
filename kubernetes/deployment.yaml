@@ -14,8 +14,8 @@ spec:
       labels:
         app: test-app
     spec:
+      serviceAccountName: cloud-sql-access  # <-- KSA bound to GSA with Cloud SQL Client role
       containers:
-      # Main application container
       - name: test-app
         image: europe-central2-docker.pkg.dev/graphite-store-460210-d9/docker-repo/test-app:latest
         ports:
@@ -40,8 +40,6 @@ spec:
             secretKeyRef:
               name: db-credentials
               key: database
-
-      # Cloud SQL Proxy sidecar container
       - name: cloud-sql-proxy
         image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.6.1
         args:
@@ -49,6 +47,21 @@ spec:
           - "graphite-store-460210-d9:europe-central2:test-sql-instance"
         securityContext:
           runAsNonRoot: true
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+        readinessProbe:
+          exec:
+            command:
+              - "/bin/sh"
+              - "-c"
+              - "nc -z localhost 3306"
+          initialDelaySeconds: 5
+          periodSeconds: 5
 
 ---
 apiVersion: v1
